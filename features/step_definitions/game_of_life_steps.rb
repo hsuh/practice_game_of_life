@@ -6,15 +6,13 @@ end
 
 When /^I evolve the board$/ do
   gameOfLife = GameOfLife.new
-  @result    = gameOfLife.next_step( @data )
+  @result    = gameOfLife.next_generation( @data )
 end
 
 Then /^the center cell should be dead$/ do
-  #@result.should == @data
   @result[1][1].should == '.'
 end
 
 Then /^the center cell should be alive$/ do
-  #@result.should_not == @data
   @result[1][1].should == 'x'
 end

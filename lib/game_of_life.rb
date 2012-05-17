@@ -1,6 +1,6 @@
 class GameOfLife
 
-  def next_step(new_table, generations = 1)
+  def next_generation(new_table, generations = 1)
 
     #make a copy for next generation
     next_generation_table = new_table
