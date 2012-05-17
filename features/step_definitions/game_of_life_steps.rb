@@ -14,3 +14,8 @@ end
 Then /^the center cell should be alive$/ do
   @result[1][1].should == 'x'
 end
+
+Then /^I should see the following board$/ do |table|
+  expected_data = table.raw
+  (expected_data - @result).should == []
+end

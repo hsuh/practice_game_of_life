@@ -12,79 +12,62 @@ class GameOfLife
     if generations == 1
       for row in 0..new_table.length-1
         for col in 0..new_table[row].length-1
-          dead_count = 0
           live_count = 0
 
           #To refactor check neighbours
           #row-1, col
           if checkBordersOK(row-1, col)
-            if new_table[row-1][col] == '.'
-              dead_count += 1
-            else
+            if new_table[row-1][col] == 'x'
               live_count += 1
             end
           end
 
           #row+1, col
           if checkBordersOK(row+1, col)
-            if new_table[row+1][col] == '.'
-              dead_count += 1
-            else
-               live_count += 1
+            if new_table[row+1][col] == 'x'
+              live_count += 1
             end
           end
 
           #row, col-1
           if checkBordersOK(row, col-1)
-            if new_table[row][col-1] == '.'
-              dead_count += 1
-            else
-               live_count += 1
+            if new_table[row][col-1] == 'x'
+                live_count += 1
             end
           end
 
           #row, col+1
           if checkBordersOK(row, col+1)
-            if new_table[row][col+1] == '.'
-              dead_count += 1
-            else
-               live_count += 1
+            if new_table[row][col+1] == 'x'
+              live_count += 1
             end
           end
 
           #row-1, col-1
           if checkBordersOK(row-1, col-1)
-            if new_table[row-1][col-1] == '.'
-              dead_count += 1
-            else
-               live_count += 1
+            if new_table[row-1][col-1] == 'x'
+              live_count += 1
             end
           end
 
           #row-1, col+1
           if checkBordersOK(row-1, col+1)
-            if new_table[row-1][col+1] == '.'
-              dead_count += 1
-            else
-               live_count += 1
+            if new_table[row-1][col+1] == 'x'
+              live_count += 1
             end
           end
 
           #row+1, col-1
           if checkBordersOK(row+1, col-1)
-            if new_table[row+1][col-1] == '.'
-              dead_count += 1
-            else
-               live_count += 1
+            if new_table[row+1][col-1] == 'x'
+              live_count += 1
             end
           end
 
           #row+1, col+1
           if checkBordersOK(row+1, col+1)
-            if new_table[row+1][col+1] == '.'
-              dead_count += 1
-            else
-               live_count += 1
+            if new_table[row+1][col+1] == 'x'
+              live_count += 1
             end
           end
 
