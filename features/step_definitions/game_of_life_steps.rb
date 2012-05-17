@@ -1,21 +1,24 @@
 Given /^the following setup$/ do |table|
-  @data = table.raw
+  data = table.raw
+  @gameOfLife = GameOfLife.new(data)
 end
 
 When /^I evolve the board$/ do
-  gameOfLife = GameOfLife.new
-  @result    = gameOfLife.next_generation( @data )
+  @gameOfLife.next_generation()
 end
 
 Then /^the center cell should be dead$/ do
-  @result[1][1].should == '.'
+  result = @gameOfLife.get_next_generation
+  result[1][1].should == '.'
 end
 
 Then /^the center cell should be alive$/ do
-  @result[1][1].should == 'x'
+  result = @gameOfLife.get_next_generation()
+  result[1][1].should == 'x'
 end
 
 Then /^I should see the following board$/ do |table|
   expected_data = table.raw
-  (expected_data - @result).should == []
+  result = @gameOfLife.get_next_generation()
+  expected_data.should == result
 end
