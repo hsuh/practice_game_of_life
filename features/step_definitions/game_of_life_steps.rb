@@ -1,5 +1,3 @@
-require 'game_of_life'
-
 Given /^the following setup$/ do |table|
   @data = table.raw
 end
