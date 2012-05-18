@@ -6,73 +6,71 @@ class GameOfLife
     @new_generation = data
   end
 
-  def next_generation()
+  def next_generation
 
     #make a copy for next generation
     @next_generation = Marshal.load(Marshal.dump(@new_generation))
 
-    #More rigorous checks to be added
+    #More rigorous checks should be added
     @max_row = @new_generation.length-1
-    @max_col = @new_generation[0].length-1
+    @max_col = @new_generation.first.length-1
 
-
-    for row in 0..@new_generation.length-1
-      for col in 0..@new_generation[row].length-1
+    @new_generation.each_with_index do |row, y|
+      row.each_with_index do |col, x|
         live_count = 0
 
-        #To refactor check neighbours
-        #row-1, col
-        if checkBordersOK(row-1, col)
-          if @new_generation[row-1][col] == 'x'
+        #checking the neighbour above
+        if checkBordersOK(y-1, x)
+          if @new_generation[y-1][x] == 'x'
             live_count += 1
           end
         end
 
-        #row+1, col
-        if checkBordersOK(row+1, col)
-          if @new_generation[row+1][col] == 'x'
+        #below, same column
+        if checkBordersOK(y+1, x)
+          if @new_generation[y+1][x] == 'x'
             live_count += 1
           end
         end
 
-        #row, col-1
-        if checkBordersOK(row, col-1)
-          if @new_generation[row][col-1] == 'x'
+        #left, same row
+        if checkBordersOK(y, x-1)
+          if @new_generation[y][x-1] == 'x'
               live_count += 1
           end
         end
 
-        #row, col+1
-        if checkBordersOK(row, col+1)
-          if @new_generation[row][col+1] == 'x'
+        #right, same row
+        if checkBordersOK(y, x+1)
+          if @new_generation[y][x+1] == 'x'
             live_count += 1
           end
         end
 
-        #row-1, col-1
-        if checkBordersOK(row-1, col-1)
-          if @new_generation[row-1][col-1] == 'x'
+        #top left
+        if checkBordersOK(y-1, x-1)
+          if @new_generation[y-1][x-1] == 'x'
             live_count += 1
           end
         end
 
-        #row-1, col+1
-        if checkBordersOK(row-1, col+1)
-          if @new_generation[row-1][col+1] == 'x'
+        #top right
+        if checkBordersOK(y-1, x+1)
+          if @new_generation[y-1][x+1] == 'x'
             live_count += 1
           end
         end
 
-        #row+1, col-1
-        if checkBordersOK(row+1, col-1)
-          if @new_generation[row+1][col-1] == 'x'
+        #bottom left
+        if checkBordersOK(y+1, x-1)
+          if @new_generation[y+1][x-1] == 'x'
             live_count += 1
           end
         end
 
-        #row+1, col+1
-        if checkBordersOK(row+1, col+1)
-          if @new_generation[row+1][col+1] == 'x'
+        #bottom right
+        if checkBordersOK(y+1, x+1)
+          if @new_generation[y+1][x+1] == 'x'
             live_count += 1
           end
         end
@@ -81,22 +79,15 @@ class GameOfLife
         #Any live cell with two or three live neighbours lives
         #Any live cell with more than three live neighbours dies
         if live_count < 2 || live_count > 3
-          @next_generation[row][col] = '.'
+          @next_generation[y][x] = '.'
         end
 
         #Any dead or live cell with exactly three live neighbours is a live cell
         if live_count == 3
-          @next_generation[row][col] = 'x'
+          @next_generation[y][x] = 'x'
         end
        end # end for col
       end #end for row
-
-#    for row in 0..@next_generation.length-1
-#      for col in 0..@next_generation[row].length-1
-#        puts @next_generation[row][col]
-#      end
-#      puts "........."
-#    end
 
     @new_generation = @next_generation
   end #end def
@@ -105,8 +96,16 @@ class GameOfLife
     @next_generation
   end
 
-  def checkBordersOK(row, col)
-    !(row < 0) && !(col<0) && !(row> @max_row) && !(col>@max_col)
+  #helper for diplaying the worlds nicely
+  def displayLife
+    @next_generation.each_with_index do |row, y|
+        puts row.map { |i| "" + i.to_s + "" }.join()
+    end
+  end
+
+  #Check the edge cases, make sure we are not checking nonexistent neighbours
+  def checkBordersOK(y, x)
+    !(y < 0) && !(x < 0) && !(y > @max_row) && !(x > @max_col)
   end
 
 end
