@@ -1,6 +1,6 @@
-#Simulator for Corner's game of life worlds
+#Simulator for Conway's game of life
 #Feel free to write your own world e.g. test.world, glidergun.world
-#Pleae have a look at demo.sh on how to run the simulations
+#Please have a look at demo.sh on how to run the simulations
 
 require "./game_of_life.rb"
 
