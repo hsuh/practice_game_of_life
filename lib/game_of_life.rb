@@ -1,7 +1,5 @@
 class GameOfLife
 
-  attr_reader :new_generation
-
   def initialize(data)
     @new_generation = data
   end
